@@ -1,0 +1,71 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.7'
+	id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	/* 기본 의존성 세팅 */
+	//Spring Data JPA를 사용하여 데이터베이스와 상호 작용할 수 있는 기능을 제공합니다. JPA(EntityManager), Hibernate와 통합됩니다.
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//JDBC를 사용하여 데이터베이스와 상호 작용할 수 있는 기능을 제공합니다. DataSource 설정, JDBC 템플릿 등의 기능을 포함합니다.
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	//Spring MVC를 사용하여 웹 애플리케이션을 개발할 수 있는 기능을 제공합니다. RESTful 웹 서비스, 웹 애플리케이션 등을 구현할 수 있습니다.
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+    //반복적인 코드 작성을 줄여주는 어노테이션을 제공합니다. 예: @Getter, @Setter, @NoArgsConstructor, @AllArgsConstructor 등.
+	annotationProcessor 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok'
+
+	//MySQL 데이터베이스에 연결할 수 있는 JDBC 드라이버를 제공합니다.
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	// Spring Boot 애플리케이션의 설정 파일(application.properties 또는 application.yml)에서 사용할 수 있는 설정 키와 값을 자동으로 생성하고 관리하는 데 도움
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    // Spring Boot의 DevTools 기능을 사용하기 위해 추가됩니다. DevTools는 개발 중 생산성을 높이기 위해 다양한 기능을 제공
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	//Swagger -> Spring Boot 애플리케이션에서 RESTful API의 문서를 자동으로 생성하고, Swagger UI를 통해 이를 쉽게 확인
+	//springdoc-openapi는 Spring MVC와 통합되어 OpenAPI 3.0 스펙에 맞는 API 문서를 생성
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
+
+	//GSON -> Gson은 Java 객체를 JSON 형식으로 변환하거나(JSON 직렬화), JSON 형식을 Java 객체로 변환하는(JSON 역직렬화) 작업을 수행
+	implementation 'com.google.code.gson:gson:2.8.7'
+
+	//Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//JWT 처리의 API를 정의하는 모듈입니다.
+	//JWT 생성, 서명, 검증, 파싱 등의 기능을 포함합니다.
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	//jjwt-api의 구체적인 구현체를 제공합니다.
+	//실제로 JWT를 생성하고 검증하는 로직이 포함되어 있습니다.
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	//Jackson 라이브러리를 사용하여 JWT의 JSON 처리 기능을 제공합니다.
+	//JWT의 페이로드를 JSON으로 직렬화 및 역직렬화하는 작업을 수행합니다.
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+
+	//redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

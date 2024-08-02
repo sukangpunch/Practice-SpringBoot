@@ -1,0 +1,25 @@
+##Swagger ??
+#springdoc:
+#  packages-to-scan: com.example.forgps
+#  default-consumes-media-type: application/json;charset=UTF-8
+#  default-produces-media-type: application/json;charset=UTF-8
+#  swagger-ui:
+#    path: /
+#    disable-swagger-default-url: true
+#    display-request-duration: true
+#    operations-sorter: alpha
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: snaptime
+    url: jdbc:mysql://localhost:3307/forgps
+    password: snaptime1@
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
